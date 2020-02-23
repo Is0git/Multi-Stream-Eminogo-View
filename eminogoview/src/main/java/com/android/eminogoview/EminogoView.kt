@@ -17,6 +17,8 @@ class EminogoView : View {
     lateinit var circlePaint: Paint
     lateinit var circleBitMap: Bitmap
     lateinit var circleDrawable: VectorDrawable
+    lateinit var lineDrawable: VectorDrawable
+    lateinit var lineBitmap: Bitmap
 
     constructor(context: Context?) : super(context) {init(context)}
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){init(context)}
@@ -40,7 +42,7 @@ class EminogoView : View {
 
         }
         circleDrawable = context?.resources?.getDrawable(R.drawable.ic_circle) as VectorDrawable
-
+        lineDrawable = context.resources?.getDrawable(R.drawable.ic_lines_vector) as VectorDrawable
 
 
     }
@@ -51,8 +53,10 @@ class EminogoView : View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        circleBitMap = getBitmap(circleDrawable, width, height)!!
-        canvas?.drawBitmap(circleBitMap, 0f,0f, circlePaint)
+        circleBitMap = getBitmap(circleDrawable, width-450, height-450)!!
+        lineBitmap = getBitmap(lineDrawable, width, height)!!
+        canvas?.drawBitmap(lineBitmap, 0f,0f, circlePaint)
+        canvas?.drawBitmap(circleBitMap, 250f,170f, circlePaint)
 
     }
 }
