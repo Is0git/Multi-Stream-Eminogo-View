@@ -50,7 +50,7 @@ class EminogoView : View {
             style = Paint.Style.STROKE
         }
         circleDrawable = context?.resources?.getDrawable(R.drawable.ic_circle) as VectorDrawable
-        lineDrawable = context.resources?.getDrawable(R.drawable.ic_lines_vector) as VectorDrawable
+        lineDrawable = context.resources?.getDrawable(R.drawable.ic_image) as VectorDrawable
         twichDrawable = context.resources?.getDrawable(R.drawable.ic_twitch_logo) as VectorDrawable
 
     }
@@ -61,12 +61,12 @@ class EminogoView : View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        circleBitMap = getBitmap(circleDrawable, width-450, height-450)!!
+        circleBitMap = getBitmap(circleDrawable, width-450, height-300)!!
         lineBitmap = getBitmap(lineDrawable, width, height)!!
         twitchBitmap = getBitmap(twichDrawable, width-300, height-500)!!
         canvas?.drawBitmap(lineBitmap, 0f,0f, circlePaint)
         canvas?.drawBitmap(circleBitMap, 250f,170f, circlePaint)
-        canvas?.drawBitmap(twitchBitmap, 150f,0f, twitchPaint)
+        canvas?.drawBitmap(twitchBitmap, 150f,100f, twitchPaint)
 
     }
 }
