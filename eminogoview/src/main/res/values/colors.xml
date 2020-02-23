@@ -9,4 +9,8 @@
         <color name="colorBackground">#FFFFFF</color>
         <color name="colorOnPrimaryVariant">#4523F7</color>
         <color name="colorOnSecondaryVariant">#B43BFF</color>
+        <color name="arcColorOne">#a16eff</color>
+        <color name="arcColorGradientOne">#5f3e9d</color>
+        <color name="arcColorGradientTwo">#171516</color>
+
 </resources>
