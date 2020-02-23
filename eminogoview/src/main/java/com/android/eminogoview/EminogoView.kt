@@ -18,7 +18,10 @@ class EminogoView : View {
     lateinit var circleBitMap: Bitmap
     lateinit var circleDrawable: VectorDrawable
     lateinit var lineDrawable: VectorDrawable
+    lateinit var twichDrawable: VectorDrawable
     lateinit var lineBitmap: Bitmap
+    lateinit var twitchBitmap: Bitmap
+    lateinit var twitchPaint: Paint
 
     constructor(context: Context?) : super(context) {init(context)}
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){init(context)}
@@ -41,9 +44,14 @@ class EminogoView : View {
         circlePaint = Paint().apply {
 
         }
+        twitchPaint = Paint().apply {
+            strokeWidth = 20f
+            color = Color.WHITE
+            style = Paint.Style.STROKE
+        }
         circleDrawable = context?.resources?.getDrawable(R.drawable.ic_circle) as VectorDrawable
         lineDrawable = context.resources?.getDrawable(R.drawable.ic_lines_vector) as VectorDrawable
-
+        twichDrawable = context.resources?.getDrawable(R.drawable.ic_twitch_logo) as VectorDrawable
 
     }
 
@@ -55,8 +63,10 @@ class EminogoView : View {
         super.onDraw(canvas)
         circleBitMap = getBitmap(circleDrawable, width-450, height-450)!!
         lineBitmap = getBitmap(lineDrawable, width, height)!!
+        twitchBitmap = getBitmap(twichDrawable, width-300, height-500)!!
         canvas?.drawBitmap(lineBitmap, 0f,0f, circlePaint)
         canvas?.drawBitmap(circleBitMap, 250f,170f, circlePaint)
+        canvas?.drawBitmap(twitchBitmap, 150f,0f, twitchPaint)
 
     }
 }
