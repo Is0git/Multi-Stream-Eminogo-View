@@ -23,7 +23,10 @@ class EminogoView : View {
     lateinit var twitchBitmap: Bitmap
     lateinit var twitchPaint: Paint
 
-    val circleSizeRatio = 0.75
+    val circleSizeRatio = 0.75f
+
+    val logoHeightSizeRatio = 0.50f
+    val logoWidthSizeRatio = 0.80f
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -90,7 +93,7 @@ class EminogoView : View {
         else {
             circleBitMap = getBitmap(circleDrawable, (width *circleSizeRatio).toInt(), (height *circleSizeRatio).toInt())!!
             lineBitmap = getBitmap(lineDrawable, width, height)!!
-            twitchBitmap = getBitmap(twichDrawable, width, height)!!
+            twitchBitmap = getBitmap(twichDrawable, (width *logoWidthSizeRatio).toInt(), (height *logoHeightSizeRatio).toInt())!!
         }
     }
 
@@ -101,8 +104,14 @@ class EminogoView : View {
 
         val circleOffSetX = midX - (width *circleSizeRatio) /2f
         val circleOffSetY = midY - (height *circleSizeRatio) /2f
+
+        val logoOffSetX = midX - (width *logoWidthSizeRatio) /2f
+        val logoOffSetY = midY - (height *logoHeightSizeRatio) /2f
+
         canvas?.drawBitmap(lineBitmap, 0f, 0f, circlePaint)
         canvas?.drawBitmap(circleBitMap, circleOffSetX.toFloat(), circleOffSetY.toFloat(), circlePaint)
+        canvas?.drawBitmap(twitchBitmap, logoOffSetX.toFloat(), logoOffSetY * 0.70f, twitchPaint)
+
 
 
     }
