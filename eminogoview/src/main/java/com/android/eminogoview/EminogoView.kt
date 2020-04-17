@@ -14,18 +14,17 @@ import com.android.getBitmap
 
 class EminogoView : View {
 
-    lateinit var circleShape: Path
     lateinit var circlePaint: Paint
     lateinit var circleBitMap: Bitmap
     lateinit var circleDrawable: VectorDrawable
     lateinit var lineDrawable: VectorDrawable
-    lateinit var twichDrawable: VectorDrawable
+    lateinit var twitchDrawable: VectorDrawable
     lateinit var lineBitmap: Bitmap
     lateinit var twitchBitmap: Bitmap
     lateinit var twitchPaint: Paint
-    lateinit var circleRectF: RectF
     lateinit var underCirclePaint: Paint
     lateinit var linesPaint: Paint
+    lateinit var strokedCircle: Paint
     var circleAlpha = 0
     val circleSizeRatio = 0.75f
 
@@ -41,14 +40,16 @@ class EminogoView : View {
     var startAngle = -45f
     var sweepAngle = 180f
 
+    var strokedCircleSweepAngle = 0f
+
     var circleDrawableId = R.drawable.ic_circle
     var lineDrawableId = R.drawable.ic_lines
     var logoDrawableId = R.drawable.ic_twitch_logo
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     set(value) {
         field = value
-        twichDrawable = ResourcesCompat.getDrawable(resources, logoDrawableId, null) as VectorDrawable
-        twitchBitmap = getBitmap(twichDrawable, (width *logoWidthSizeRatio).toInt(), (height *logoHeightSizeRatio).toInt())!!
+        twitchDrawable = ResourcesCompat.getDrawable(resources, logoDrawableId, null) as VectorDrawable
+        twitchBitmap = getBitmap(twitchDrawable, (width *logoWidthSizeRatio).toInt(), (height *logoHeightSizeRatio).toInt())!!
     }
 
     constructor(context: Context?) : super(context) {
@@ -77,7 +78,7 @@ class EminogoView : View {
         }
 
         underCirclePaint = Paint().apply {
-            color = Color.WHITE
+            color = ResourcesCompat.getColor(resources, R.color.colorSurface, null)
         }
 
         circlePaint = Paint().apply {
@@ -91,6 +92,11 @@ class EminogoView : View {
 
         linesPaint = Paint().apply {
             alpha = linesAlpha
+        }
+
+        strokedCircle = Paint().apply {
+            color = ResourcesCompat.getColor(resources, R.color.colorSurface, null)
+            style = Paint.Style.STROKE
         }
     }
 
@@ -111,11 +117,11 @@ class EminogoView : View {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         circleDrawable = ResourcesCompat.getDrawable(resources, circleDrawableId, null) as VectorDrawable
         lineDrawable = ResourcesCompat.getDrawable(resources, lineDrawableId, null) as VectorDrawable
-        twichDrawable = ResourcesCompat.getDrawable(resources, logoDrawableId, null) as VectorDrawable
+        twitchDrawable = ResourcesCompat.getDrawable(resources, logoDrawableId, null) as VectorDrawable
 
         circleBitMap = getBitmap(circleDrawable, (width *circleSizeRatio).toInt(), (height *circleSizeRatio).toInt())!!
         lineBitmap = getBitmap(lineDrawable, width, height)!!
-        twitchBitmap = getBitmap(twichDrawable, (width * logoWidthSizeRatio).toInt(), (height * logoHeightSizeRatio).toInt())!!
+        twitchBitmap = getBitmap(twitchDrawable, (width * logoWidthSizeRatio).toInt(), (height * logoHeightSizeRatio).toInt())!!
 
 
     }
@@ -134,7 +140,7 @@ class EminogoView : View {
         linesPaint.alpha = linesAlpha
         twitchPaint.alpha = logoAlpha
         circlePaint.alpha = circleAlpha
-
+        canvas?.drawArc(0f, 0f, width.toFloat() * 1f, height.toFloat() * 1f, 0f, strokedCircleSweepAngle, true, strokedCircle)
         canvas?.drawArc(0f, 0f, width.toFloat() * 1f, height.toFloat() * 1f, startAngle, sweepAngle, true, underCirclePaint)
         canvas?.drawBitmap(lineBitmap, linesX, linesY, linesPaint)
         canvas?.drawBitmap(circleBitMap, circleOffSetX, circleOffSetY, circlePaint)
