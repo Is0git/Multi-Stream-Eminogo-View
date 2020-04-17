@@ -2,10 +2,13 @@ package com.android.eminogoview
 
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
@@ -97,6 +100,7 @@ class EminogoView : View {
         strokedCircle = Paint().apply {
             color = ResourcesCompat.getColor(resources, R.color.colorSurface, null)
             style = Paint.Style.STROKE
+            strokeWidth = convertDpToPixel(10f, getContext())
         }
     }
 
@@ -140,11 +144,16 @@ class EminogoView : View {
         linesPaint.alpha = linesAlpha
         twitchPaint.alpha = logoAlpha
         circlePaint.alpha = circleAlpha
-        canvas?.drawArc(0f, 0f, width.toFloat() * 1f, height.toFloat() * 1f, 0f, strokedCircleSweepAngle, true, strokedCircle)
+        canvas?.drawArc(40f, 40f, width.toFloat() * 1f *0.90f, height.toFloat() * 1f*0.90f, 0f, strokedCircleSweepAngle, false, strokedCircle)
         canvas?.drawArc(0f, 0f, width.toFloat() * 1f, height.toFloat() * 1f, startAngle, sweepAngle, true, underCirclePaint)
         canvas?.drawBitmap(lineBitmap, linesX, linesY, linesPaint)
         canvas?.drawBitmap(circleBitMap, circleOffSetX, circleOffSetY, circlePaint)
         canvas?.drawBitmap(twitchBitmap, logoOffSetX, logoOffSetY * logoOffsetRatio, twitchPaint)
 
     }
+
+    fun convertDpToPixel(dp: Float, context: Context): Float {
+        return dp * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
 }
