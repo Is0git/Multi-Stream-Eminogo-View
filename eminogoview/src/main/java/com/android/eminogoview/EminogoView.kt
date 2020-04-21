@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import com.android.getBitmap
 
-
 class EminogoView : View {
 
     lateinit var circlePaint: Paint
@@ -115,8 +114,6 @@ class EminogoView : View {
             setMeasuredDimension(widthSize, widthSize)
         }
     }
-
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         circleDrawable = ResourcesCompat.getDrawable(resources, circleDrawableId, null) as VectorDrawable
